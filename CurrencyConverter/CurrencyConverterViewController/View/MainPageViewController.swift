@@ -29,6 +29,7 @@ class MainPageViewController: UIViewController {
         self.setViewColor()
         self.setUpTableView()
         self.setUpLabel()
+        self.defaultAPICall()
     }
     
     private func setUpView() {
@@ -106,6 +107,12 @@ extension MainPageViewController {
             }
         }
     }
+    
+    private func defaultAPICall() {
+        Task{
+            await self.convertAPICall()
+        }
+    }
 }
 
 extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -135,10 +142,7 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
                 self.lblCurrencyFrom.text = countryList[indexPath.row].currency
             } else {
                 self.lblCurrencyTo.text = countryList[indexPath.row].currency
-                
-                Task{
-                    await self.convertAPICall()
-                }
+                self.defaultAPICall()
             }
         }
         
